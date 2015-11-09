@@ -1,4 +1,5 @@
 require 'rails_helper'
+include RandomData
 
 RSpec.describe WelcomeController, type: :controller do
   describe "GET index" do
