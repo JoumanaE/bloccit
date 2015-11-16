@@ -1,13 +1,4 @@
 Rails.application.routes.draw do
-
-  get "posts/index"
-
-  get "posts/show"
-
-  get "posts/new"
-
-  get "posts/edit"
-
   resources :posts
 
   get "welcome/index"
@@ -24,8 +15,15 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+
+
+
+  resources :advertisements
+
+
   root to: 'welcome#index'
 end
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
