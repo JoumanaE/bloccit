@@ -28,4 +28,5 @@
      <%= f.submit "Save", class: 'btn btn-success' %>
    <% end %>
  </div>
+  <%= render partial: 'form', locals: { topic: @post.topic, topic: @topic } %>
 </div>

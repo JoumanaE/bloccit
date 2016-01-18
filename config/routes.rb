@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :posts, except: [:index]
     resources :sponsored_posts
     resources :users, only: [:new, :create]
+
+    resources :sessions, only: [:new, :create, :destroy]
   end
 
   get 'about' => 'welcome#about'
