@@ -1,35 +1,15 @@
 include RandomData
 
-50.times do
-  Post.create!(
-  title: RandomData.random_sentence,
-  body: RandomData.random_paragraph
+#Create users
+5.times do
+  User.create!(
+
+  name: RandomData.random_name,
+  email: RandomData.random_email,
+  password: RandomData.random_sentence
   )
 end
-posts = Post.all
-
-100.times do
-  Comment.create!(
-
-  post: posts.sample,
-  body: RandomData.random_paragraph
-  )
-end
-
-50.times do
-  Advertisement.create!(
-  title: RandomData.random_sentence,
-  copy: RandomData.random_paragraph,
-  price: [50, 100, 99, 1].sample
-  )
-end
-
-puts "Seed finished"
-puts "#{Post.count} posts created"
-puts "#{Comment.count} comment created"
-puts "#{Advertisement.count} ads created"
-
-include RandomData
+users = User.all
 
 # Create Topics
 15.times do
@@ -43,6 +23,7 @@ topics = Topic.all
 # Create Posts
 50.times do
   Post.create!(
+    user: users.sample,
     topic:  topics.sample,
     title:  RandomData.random_sentence,
     body:   RandomData.random_paragraph
@@ -59,7 +40,14 @@ posts = Post.all
   )
 end
 
+user = User.first
+user.update_attributes!(
+email: 'joumana.elalaoui@gmail.com',
+password: 'helloworld'
+)
+
 puts "Seed finished"
+puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"

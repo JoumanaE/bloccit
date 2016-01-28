@@ -8,6 +8,7 @@ RSpec.describe TopicsController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
     end
+  end
 
     describe "GET show" do
     it "returns http success" do
@@ -65,12 +66,12 @@ RSpec.describe TopicsController, type: :controller do
       get :edit, {id: my_topic.id}
       expect(response).to render_template :edit
     end
-    it "assign topic to be updated to @topic"
-    get :edit, {id: my_topic.id}
-    topic_instance = assigns(topic)
-    expect(topic_instance.id).to eq my_topic.id
-    expect(topic_instance.name).to eq my_topic.name
-    expect(topic_instance.description).to eq my_topic.description
+    it "assign topic to be updated to @topic" do
+      get :edit, {id: my_topic.id}
+      topic_instance = assigns(topic)
+      expect(topic_instance.id).to eq my_topic.id
+      expect(topic_instance.name).to eq my_topic.name
+      expect(topic_instance.description).to eq my_topic.description
     end
   end
   describe "PUT update" do
