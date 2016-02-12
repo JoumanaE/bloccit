@@ -68,7 +68,7 @@ RSpec.describe TopicsController, type: :controller do
     end
     it "assign topic to be updated to @topic" do
       get :edit, {id: my_topic.id}
-      topic_instance = assigns(topic)
+      topic_instance = assigns(:topic)
       expect(topic_instance.id).to eq my_topic.id
       expect(topic_instance.name).to eq my_topic.name
       expect(topic_instance.description).to eq my_topic.description

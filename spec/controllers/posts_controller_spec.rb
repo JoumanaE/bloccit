@@ -1,8 +1,9 @@
-Require 'rails_helper'
+require 'rails_helper'
 include RandomData
 include SessionsHelper
 RSpec.describe PostsController, type: :controller do
   # #8
+  before_action :require_sign_in, except: :show
   let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
   let(:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
   let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }

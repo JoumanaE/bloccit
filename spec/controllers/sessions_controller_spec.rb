@@ -13,7 +13,7 @@ RSpec.describe SessionsController, type: :controller do
   describe "POST sessions" do
     it "returns http sucess" do
       get :new
-      expect(response).to have_http_status(success)
+      expect(response).to have_http_status(:success)
     end
   end
 

@@ -1,18 +1,18 @@
 class PostsController < ApplicationController
+  before_action :require_sign_in, except: [:show]
 
   def show
     @post = Post.find(params[:id])
   end
 
   def new
-    @post = Post.new
     @topic = Topic.find(params[:topic_id])
-    @post =Post.new
+    @post = Post.new
   end
 
   def create
 # #9
-    @post = Post.new
+    @post = current_user.posts.new
     @post.title = params[:post][:title]
     @post.body = params[:post][:body]
     @topic = Topic.find(params[:topic_id])
@@ -25,7 +25,6 @@ class PostsController < ApplicationController
       redirect_to [@topic, @post]
     else
 # #12
-      before_action :require_sign_in, except: :show
       flash[:error] = "There was an error saving the post. Please try again."
       render :new
     end
@@ -42,7 +41,6 @@ class PostsController < ApplicationController
 
      if @post.save
        flash[:notice] = "Post was updated."
-       redirect_to @post
        redirect_to [@post.topic, @post]
      else
        flash[:error] = "There was an error saving the post. Please try again."
