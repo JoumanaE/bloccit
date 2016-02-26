@@ -5,6 +5,12 @@ module TopicsHelper
   end
 end
 
+  def user_is_authorized_for_topics?
+    current_user && curent_user.moderator?
+  end
+end
+
+
   def form_group_tag(errors, &block)
 
     if errors.any?
