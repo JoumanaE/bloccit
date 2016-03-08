@@ -13,15 +13,19 @@ class PostsController < ApplicationController
   end
 
   def create
-# #9
-    @post = current_user.posts.new
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
+
     @topic = Topic.find(params[:topic_id])
-    @post.topic = @topic
+    @post = @topic.posts.build(post_params)
+    @post.user = current_user
+    #@post = current_user.posts.new
+    #@post.title = params[:post][:title]
+    #@post.body = params[:post][:body]
+
 
 # #10
     if @post.save
+
+      @post.labels = Label.update_labels(params[:post][:labels])
 # #11
       flash[:notice] = "Post was saved."
       redirect_to [@topic, @post]
@@ -38,10 +42,10 @@ class PostsController < ApplicationController
 
   def update
      @post = Post.find(params[:id])
-     @post.title = params[:post][:title]
-     @post.body = params[:post][:body]
+     @post.assign_attributes(post_params)
 
      if @post.save
+       @post.labels = Label.update_labels(params[:post][:labels])
        flash[:notice] = "Post was updated."
        redirect_to [@post.topic, @post]
      else
