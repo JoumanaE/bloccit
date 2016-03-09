@@ -8,9 +8,9 @@
 <div class="row">
   <div class="col-md-8">
     <p class="lead">
-      <%= render partial: "labels/list", locals: {labels: @topic.labels } %>
-      <br/>
-      <%= @topic.description %>
+      <%= render partial: "labels/list", locals: { labels: @topic.labels } %>
+     <br />
+     <%= @topic.description %>
     </p>
 
     <%= @topic.posts.each do |post| %>
