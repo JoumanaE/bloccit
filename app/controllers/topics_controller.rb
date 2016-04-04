@@ -6,9 +6,12 @@ class TopicsController < ApplicationController
   def index
     @topics = Topic.all
   end
+
+
   def show
     @topic = Topic.find(params[:id])
   end
+
   def new
     @topic = Topic.new
   end
@@ -34,11 +37,10 @@ class TopicsController < ApplicationController
     if @topic.save
 
       @topic.labels = Label.update_labels(params[:topic][:labels])
-      flash[:notice] = "Topic was updated."
-      redirect_to @topic
+      redirect_to @topic, notice: "Topic was saved successfully."
     else
-      flash[:alert] = "Error saving topic. Please try again."
-      render :edit
+      flash.now[:alert] = "Error creating topic. Please try again."
+      render :new
     end
   end
 
@@ -57,15 +59,17 @@ class TopicsController < ApplicationController
     end
   end
 
-  private
-  def topic_params
-    params.require(:topic).permit(:name, :description, :public)
-  end
 
-  def authorize_user
-    unless current_user.admin?
-      flash[:alert] = "You must be an admin to do that."
-      redirect_to topics_path
-    end
-  end
+  private
+   def topic_params
+     params.require(:topic).permit(:name, :description, :public)
+   end
+
+
+   def authorize_user
+     unless current_user.admin?
+       flash[:alert] = "You must be an admin to do that."
+       redirect_to topics_path
+     end
+   end
 end
